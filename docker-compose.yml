@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  telegrambot:
+    restart: unless-stopped
+    build:
+      context: "./telegrambot"
+      dockerfile: Dockerfile
+    environment:
+      - TELEGRAM_TOKEN=${TELEGRAM_TOKEN}
+    volumes:
+      - "/codebase:/codebase"
+      - "/storage:/storage"
+      - locationfile:pathtofile
+  app:
+    restart: unless-stopped
+    build: ./app
+    volumes:
+      - locationfile:pathtofile
+  map:
+    restart: unless-stopped
+    volumes:
+      - locationfile:pathtofile
+volumes:
+  locationfile:
